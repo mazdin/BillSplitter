@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BillSplitter – Split Bills, Not Friendships</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="dark-theme">
+  <div id="app">
+    <!-- Home View -->
+    <div id="home-view" class="view active">
+      <div class="hero">
+        <h1 class="gradient-text">BillSplitter</h1>
+        <p>Membagi tagihan jadi lebih mudah, akurat, dan transparan.</p>
+        <div class="card glass">
+          <h3>Mulai Session Baru</h3>
+          <div class="form-group">
+            <label for="session-name">Nama Kegiatan</label>
+            <input type="text" id="session-name" placeholder="Contoh: WFC Starbucks atau Makan Malam">
+          </div>
+          <button id="btn-create-session" class="btn-primary">
+            Buat Sekarang <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Session View -->
+    <div id="session-view" class="view">
+      <header class="app-header glass">
+        <div class="header-content">
+          <button id="btn-back-home" class="btn-icon"><i data-lucide="chevron-left"></i></button>
+          <div class="session-info">
+            <h2 id="display-session-name">---</h2>
+            <span id="display-session-date">---</span>
+          </div>
+          <button id="btn-share-link" class="btn-icon"><i data-lucide="share-2"></i></button>
+        </div>
+      </header>
+
+      <main class="container">
+        <!-- Members Section -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Anggota <span id="member-count" class="badge">0</span></h3>
+            <button id="btn-add-member" class="btn-text">+ Tambah</button>
+          </div>
+          <div id="members-list" class="chip-container">
+            <!-- Members chips populated here -->
+          </div>
+        </section>
+
+        <!-- Items Section -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Pesanan</h3>
+            <button id="btn-add-item" class="btn-primary btn-sm">
+              <i data-lucide="plus"></i> Item
+            </button>
+          </div>
+          <div id="items-list" class="items-grid">
+            <!-- Items cards populated here -->
+          </div>
+        </section>
+
+        <!-- Config Section -->
+        <section class="section">
+           <div class="card glass config-card">
+              <div class="config-row">
+                 <span>Pajak (%)</span>
+                 <input type="number" id="config-tax" value="0" step="0.1">
+              </div>
+              <div class="config-row">
+                 <span>Service Charge</span>
+                 <input type="number" id="config-service" value="0">
+              </div>
+              <div class="config-row">
+                 <span>Pembulatan</span>
+                 <select id="config-rounding">
+                   <option value="none">Tanpa Pembulatan</option>
+                   <option value="ceil">Ke Atas (Ceil)</option>
+                   <option value="floor">Ke Bawah (Floor)</option>
+                 </select>
+              </div>
+           </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary-section" class="section">
+          <div class="card summary-card gradient-bg">
+            <div class="summary-item">
+              <span>Subtotal</span>
+              <span id="summary-subtotal">Rp 0</span>
+            </div>
+            <div class="summary-item">
+              <span>Pajak & Service</span>
+              <span id="summary-charges">Rp 0</span>
+            </div>
+            <hr>
+            <div class="summary-item total">
+              <span>Total Akhir</span>
+              <span id="summary-total">Rp 0</span>
+            </div>
+            <button id="btn-copy-wa" class="btn-secondary">
+              <i data-lucide="copy"></i> Salin untuk WhatsApp
+            </button>
+          </div>
+
+          <div id="member-breakdown" class="breakdown-list">
+            <!-- Individual breakdown cards here -->
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Member -->
+  <div id="modal-member" class="modal">
+    <div class="modal-content glass">
+      <h3>Tambah Anggota</h3>
+      <input type="text" id="input-member-name" placeholder="Nama anggota">
+      <div class="modal-actions">
+        <button class="btn-text btn-close-modal">Batal</button>
+        <button id="btn-save-member" class="btn-primary">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Item -->
+  <div id="modal-item" class="modal">
+    <div class="modal-content glass large">
+      <h3 id="item-modal-title">Tambah Item</h3>
+      <div class="form-group">
+        <label>Nama Item</label>
+        <input type="text" id="input-item-name" placeholder="Es Kopi Susu">
+      </div>
+      <div class="form-group">
+        <label>Harga (Rp)</label>
+        <input type="number" id="input-item-price" placeholder="25000">
+      </div>
+      <div class="form-group">
+        <label>Pilih Yang Makan/Minum Ini</label>
+        <div id="member-selection-list" class="selection-grid">
+          <!-- Member selection generated here -->
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-text btn-close-modal">Batal</button>
+        <button id="btn-save-item" class="btn-primary">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

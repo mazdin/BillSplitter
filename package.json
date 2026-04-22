@@ -1,0 +1,18 @@
+{
+  "name": "bill-splitter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.6.0",
+    "nanoid": "^5.0.7"
+  }
+}

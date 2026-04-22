@@ -1,6 +1,7 @@
 import { createClient } from '@libsql/client';
 
-const url = process.env.TURSO_DATABASE_URL?.trim().replace(/\/$/, "");
+const rawUrl = process.env.TURSO_DATABASE_URL?.trim() || '';
+const url = rawUrl.replace(/^(libsql|wss):\/\//, "https://").replace(/\/$/, "");
 
 export const db = createClient({
   url: url,
